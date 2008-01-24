@@ -25,10 +25,9 @@ WordPress 2.2 and up comes with both libraries already installed.
 1. Unzip the archive to your `wp-content/plugins/` folder.
 2. Activate the plugin through the `Plugins` menu in WordPress
 3. Create post or a page with `KPICASA_GALLERY(YourPicasaUsername)` as the only content.
-   For example, if your Picasa username is john123, you would create a post or page with `KPICASA_GALLERY(john123)`
+   For example, if your Picasa username is knut123, you would create a post or page with `KPICASA_GALLERY(knut123)`
 4. Browse to that post or page, voil‡!
 
 == Frequently Asked Questions ==
 
-?? no questions so far ??
 

@@ -10,6 +10,7 @@ Version History
 ---------------------------------------------------------------------------
 2007-12-19	0.0.4-PHP4	Modifications for PHP4 (based on kPicasa Gallery 0.0.4)
 2008-01-12  0.0.5-PHP4	Modifications for PHP4 (based on kPicasa Gallery 0.0.5)
+2008-01-24  0.0.5.1-PHP4	Removed obsolete debug information, fixed counter issue noticed by Darin
 
 TODO
 ---------------------------------------------------------------------------
@@ -85,8 +86,7 @@ if ( !class_exists('KPicasaGallery') ) {
 			$xmlparse = &new ParseXML;
             $xml = $xmlparse->GetXMLTree($data);
             $xml = $xml["FEED"]["0"];
-			//array_splice($xml,"ATTRIBUTES",1);
-			print_r($xml);
+
 			print '<br />';
 			$page  = isset($_GET['kpgp']) && intval($_GET['kpgp']) > 1 ? intval($_GET['kpgp']) : 1; // kpgp = kPicasa Gallery Page
 			if ($this->nbAlbumsPerPage > 0) {
@@ -94,7 +94,8 @@ if ( !class_exists('KPicasaGallery') ) {
 				$stop  = $start + $this->nbAlbumsPerPage - 1;
 			} else {
 				$start = 0;
-				$stop = count( $xml->entry ) - 1;
+				$stop = count( $xml["ENTRY"] ) - 1;
+				if ($stop < 0) { $stop = 0; }
 			}
 			$i = 0;
 			foreach( $xml["ENTRY"] as $album ) {
@@ -168,6 +169,7 @@ if ( !class_exists('KPicasaGallery') ) {
 			} else {
 				$start = 0;
 				$stop = count( $xml["ENTRY"] ) - 1;
+				if ($stop < 0) { $stop = 0; }
 			}
 			$i = 0;
 			$j = 0;
@@ -268,7 +270,6 @@ function loadKPicasaGallery ($content = '') {
 				$showOnlyAlbums[] = trim( $args[$i] );
 			}
 		}
-		//print_r($args); print "<br>"; print "$username, $nbAlbumsPerPage, $nbPhotosPerPage";exit;
 		$gallery = new KPicasaGallery($username, $nbAlbumsPerPage, $nbPhotosPerPage, $showOnlyAlbums);
 		return ob_get_clean();
 	}
