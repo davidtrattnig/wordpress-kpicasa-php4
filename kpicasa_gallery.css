@@ -1,0 +1,118 @@
+/********************************************
+* Album list                                *
+********************************************/
+/* table cell containing one album */
+table#kpg-albums td {
+	padding: 0 10px 20px 0;
+	vertical-align: top;
+}
+
+/* the album picture thumbnail */
+table#kpg-albums td img.kpg-thumb {
+	border: solid 1px black;
+}
+
+/* the link with the name of the album */
+table#kpg-albums td div.kpg-title a {
+	font-weight: bold;
+}
+
+/* the album summary */
+table#kpg-albums td div.kpg-summary {
+}
+
+/* the album location */
+table#kpg-albums td div.kpg-location {
+	font-style: italic;
+}
+
+/* the number of photos in the album */
+table#kpg-albums td div.kpg-nbPhotos {
+	margin-top: 15px;
+}
+
+/* PLEASE TAKE CARE WHEN EDITING THE TWO CLASSES BELOW */
+/* They are used to style the output differently depending if there are one or more albums per row */
+table#kpg-albums td img.kpg-thumb-onePerRow {
+	float: left;
+	margin-right: 10px;
+}
+table#kpg-albums td img.kpg-thumb-multiplePerRow {
+	clear: both;
+}
+
+/********************************************
+* Picture list (in an album)                *
+********************************************/
+/* the "Back to album list" link container */
+div#kpg-backLink {
+	padding-bottom: 20px;
+}
+
+
+
+/* the box with the album description */
+div#kpg-album-description {
+	padding: 10px;
+	margin-bottom: 30px;
+	background-color: #FFFFE1;
+	border: solid 1px #CECF8E;
+}
+
+/* the album title */
+div#kpg-album-description div#kpg-title {
+	font-weight: bold;
+}
+
+/* the album summary */
+div#kpg-album-description div#kpg-summary {
+}
+
+/* the album location */
+div#kpg-album-description div#kpg-location {
+	font-style: italic;
+}
+
+/* the number of photos in the album */
+div#kpg-album-description div#kpg-nbPhotos {
+}
+
+
+
+/* table cell containing he picture + caption */
+table#kpg-pictures td {
+	text-align: center;
+	padding-bottom: 20px;
+	vertical-align: top;
+}
+
+/* the picture caption */
+table#kpg-pictures td div.kpg-summary {
+}
+
+/* the picture thumbnail */
+table#kpg-pictures td img.kpg-thumb {
+	border: solid 1px black !important;
+}
+
+/********************************************
+* Paginator                                 *
+********************************************/
+/* block containing the paginator */
+div#kpg-paginator {
+	font-weight: bold;
+	text-align: center;
+	line-height: 30px;
+}
+
+/* the current page */
+div#kpg-paginator span.kpg-on {
+	border: solid 1px #C0C0C0;
+	padding: 4px;
+}
+
+/* the other pages */
+div#kpg-paginator a {
+	border: solid 1px #F0F0F0;
+	padding: 4px;
+}
