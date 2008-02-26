@@ -13,6 +13,9 @@ Version History
 2008-01-24  0.0.6	Removed obsolete debug information, fixed counter issue noticed by Darin
 2008-02-13  0.1.3   Modifications for PHP4 (based on kPicasa Gallery 0.1.3),
                     Added Configuration Property to set thumbnail size.
+2008-02-26	0.1.4	Upgrade to kPicasa Gallery 0.1.4
+					Fixed Image Summary Issue
+					Fixed Advanced Album Range Feature
 
 TODO
 ---------------------------------------------------------------------------
@@ -126,6 +129,8 @@ function loadKPicasaGallery ( $content = '' )
 		if ( isset($matches[1]) )
 		{
 			$args = explode(',', substr( substr($matches[1], 0, strlen($matches[1])-1), 1 ));
+			
+			
 			if ( count($args) > 0 )
 			{
 				foreach( $args as $value )
@@ -152,10 +157,10 @@ function loadKPicasaGallery ( $content = '' )
 }
 
 function adminKPicasaGallery()
-{
+{	
 	if ( function_exists('add_options_page') )
 	{
-		add_options_page('kPicasa Gallery', 'kPicasa Gallery', 8, dirname(__FILE__).'/param.php');
+		add_options_page('kPicasa Gallery Plugin Options', 'kPicasa Gallery', 8, KPICASA_GALLERY_DIR.'/param.php');
 	}
 }
 

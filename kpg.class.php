@@ -134,7 +134,7 @@ if ( !class_exists('KPicasaGallery') )
 			foreach( $xml["ENTRY"] as $album )
 			{
 				if ($i >= $start && $i <= $stop &&
-				( !count($this->showOnlyAlbums) || in_array((string) $album->gphoto_name, $this->showOnlyAlbums) ))
+				( !count($this->showOnlyAlbums) || in_array((string) $album["GPHOTO_NAME"]["0"]["VALUE"], $this->showOnlyAlbums) ))
 				{
 					if ($j % $this->nbAlbumsPerRow == 0)
 					{
@@ -322,7 +322,7 @@ if ( !class_exists('KPicasaGallery') )
 					if ($this->thumbnailSize == 144) { $thumbIndex = "1"; }
 					if ($this->thumbnailSize == 288) { $thumbIndex = "2"; }
 					
-					$summary  = wp_specialchars( (string) $photo["0"]["SUMMARY"]["0"]["VALUE"] );				
+					$summary  = wp_specialchars( (string) $photo["SUMMARY"]["0"]["VALUE"] );			
 					$thumbURL = (string) $photo["MEDIA_GROUP"]["0"]["MEDIA_THUMBNAIL"][$thumbIndex]["ATTRIBUTES"]['URL'];
 					$thumbH   = (string) $photo["MEDIA_GROUP"]["0"]["MEDIA_THUMBNAIL"][$thumbIndex]["ATTRIBUTES"]['HEIGHT'];
 					$thumbW   = (string) $photo["MEDIA_GROUP"]["0"]["MEDIA_THUMBNAIL"][$thumbIndex]["ATTRIBUTES"]['WIDTH'];
@@ -430,28 +430,49 @@ if ( !class_exists('KPicasaGallery') )
 
 		function fetch( $url )
 		{
+			$fopen_failed = false;
+			$curl_failed  = false;
+			
+			// todo: add timeouts?
+			
 			if ( ini_get('allow_url_fopen') == '1' )
 			{
 				$data = file_get_contents($url);
-				if ($data === false)
+				if ($data !== false)
 				{
-					return new WP_Error( 'kpicasa_gallery-cant-open-url', __("<strong>Error:</strong> kPicasa Gallery tried to connect to Picasa Web Albums using file_get_contents() and failed. Your web host is probably blocking outgoing requests.") );
+					return $data;
 				}
-				return $data;
+				$fopen_failed = true;
 			}
-			elseif ( function_exists('curl_init') )
+			if ( function_exists('curl_init') )
 			{
 				$ch = curl_init($url);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				$data = curl_exec($ch);
 				curl_close($ch);
-				if ($data === false)
+				if ($data !== false)
 				{
-					return new WP_Error( 'kpicasa_gallery-cant-open-url', __("<strong>Error:</strong> kPicasa Gallery tried to connect to Picasa Web Albums using cURL and failed. Your web host is probably blocking outgoing requests.") );
+					return $data;
 				}
-				return $data;
+				$curl_failed = true;
 			}
-			return new WP_Error( 'kpicasa_gallery-cant-open-url', __("<strong>Error:</strong> your PHP configuration does not allow kPicasa Gallery to connect to Picasa Web Albums. Please ask your administrator to enable allow_url_fopen or cURL.") );
+			
+			if ($fopen_failed && $curl_failed)
+			{
+				return new WP_Error( 'kpicasa_gallery-cant-open-url', __("<strong>Error:</strong> your PHP configuration reports that it allows kPicasa Gallery to connect to Picasa Web Albums, but in fact it seems your web host is blocking outgoing requests. Please ask your administrator to allow outgoing requests via file_get_contents() or cURL.") );
+			}
+			elseif ($fopen_failed)
+			{
+				return new WP_Error( 'kpicasa_gallery-cant-open-url', __("<strong>Error:</strong> kPicasa Gallery tried to connect to Picasa Web Albums using file_get_contents() and failed. Your web host is probably blocking outgoing requests.") );
+			}
+			elseif ($curl_failed)
+			{
+				return new WP_Error( 'kpicasa_gallery-cant-open-url', __("<strong>Error:</strong> kPicasa Gallery tried to connect to Picasa Web Albums using cURL and failed. Your web host is probably blocking outgoing requests.") );
+			}
+			else
+			{
+				return new WP_Error( 'kpicasa_gallery-cant-open-url', __("<strong>Error:</strong> your PHP configuration does not allow kPicasa Gallery to connect to Picasa Web Albums. Please ask your administrator to enable allow_url_fopen or cURL.") );
+			}
 		}
 
 		function checkError( $error )
