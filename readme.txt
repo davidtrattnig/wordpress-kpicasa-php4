@@ -1,7 +1,7 @@
 === kPicasa Gallery PHP4MOD ===
 Tags: picasa, gallery, photo, image, picture, php4
 Requires at least: 2.2
-Tested up to: 2.3.2
+Tested up to: 2.6.0
 Stable tag: trunk
 
 Display your Picasa Web Galleries in a post or in a page.

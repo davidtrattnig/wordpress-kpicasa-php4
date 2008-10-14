@@ -37,7 +37,7 @@ if( $_POST[ 'kpg_save' ] == 'Y' )
 	update_option( 'kpg_thumbnailSize',  $thumbnailSize );
 	
 	// Put an options updated message on the screen
-	print '<div id="message" class="updated fade"><p><strong>Options saved.</strong></p></div>';
+	print '<div id="message" class="updated fade"><p><strong>Settings saved.</strong></p></div>';
 }
 
 $albumPerPage = $albumPerPage > 0 ? $albumPerPage : '';
@@ -51,14 +51,9 @@ print '<h2>kPicasa Gallery Plugin Options</h2>';
 print '<form name="form1" method="post" action="'.str_replace( '%7E', '~', $_SERVER['REQUEST_URI']).'">';
 print '<input type="hidden" name="kpg_save" value="Y">';
 
-print '<p class="submit">';
-print '<input type="submit" name="Submit" value="Update Options &raquo;" />';
-print '</p>';
-
 // General settings
-print '<fieldset class="options">';
-print '<legend>General settings</legend>';
-print '<table class="optiontable">';
+print '<h3>General settings</h3>';
+print '<table class="form-table">';
 
 print '<tr valign="top">';
 print '<th scope="row">Picasa Web Albums Username:</th>';
@@ -72,16 +67,14 @@ print '<td><input type="radio" name="kpg_picEngine" value="highslide" id="kpg_pi
 $chk = $picEngine == 'lightbox' ? ' checked="checked"' : '';
 print '<input type="radio" name="kpg_picEngine" value="lightbox" id="kpg_picEngine_lightbox"'.$chk.'> <label for="kpg_picEngine_lightbox">Lightbox</label> (<a href="http://www.huddletogether.com/projects/lightbox2/" target="_blank">visit homepage</a>)<br />';
 $chk = $picEngine == '' ? ' checked="checked"' : '';
-print '<input type="radio" name="kpg_picEngine" value="" id="kpg_picEngine_none"'.$chk.'> <label for="kpg_picEngine_none">None</label> (I already have some other kind of mecanism)</td>';
+print '<input type="radio" name="kpg_picEngine" value="" id="kpg_picEngine_none"'.$chk.'> <label for="kpg_picEngine_none">None</label> (I already have some other kind of mechanism)</td>';
 print '</tr>';
 
 print '</table>';
-print '</fieldset>';
 
 // Album List
-print '<fieldset class="options">';
-print '<legend>Album List</legend>';
-print '<table class="optiontable">';
+print '<h3>Album List</h3>';
+print '<table class="form-table">';
 
 print '<tr valign="top">';
 print '<th scope="row">Number of albums to show per page:</th>';
@@ -95,12 +88,10 @@ print '<td><input name="kpg_albumPerRow" type="text" id="kpg_albumPerRow" value=
 print '</tr>';
 
 print '</table>';
-print '</fieldset>';
 
 // Picture List
-print '<fieldset class="options">';
-print '<legend>Picture List</legend>';
-print '<table class="optiontable">';
+print '<h3>Picture List</h3>';
+print '<table class="form-table">';
 
 print '<tr valign="top">';
 print '<th scope="row">Number of pictures to show per page:</th>';
@@ -113,12 +104,10 @@ print '<td><input name="kpg_photoPerRow" type="text" id="kpg_photoPerRow" value=
 print '</tr>';
 
 print '</table>';
-print '</fieldset>';
 
 // Thumbnail size
-print '<fieldset class="options">';
-print '<legend>Thumbnail size</legend>';
-print '<table class="optiontable">';
+print '<h3>Thumbnail size</h3>';
+print '<table class="form-table">';
 
 print '<tr valign="top">';
 print '<th scope="row">Select the size for photo thumbnails:</th>';
@@ -135,10 +124,8 @@ print '</td>';
 print '</tr>';
 
 print '</table>';
-print '</fieldset>';
-
 print '<p class="submit">';
-print '<input type="submit" name="Submit" value="Update Options &raquo;" />';
+print '<input type="submit" name="Submit" value="Save Changes" />';
 print '</p>';
 
 print '</form>';

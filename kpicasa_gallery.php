@@ -2,7 +2,7 @@
 /*
 Plugin Name: kPicasa Gallery PHP4MOD
 Description: Display your Picasa Web Galleries in a post or in a page.
-Version: 0.1.4
+Version: 0.1.5
 Author: David Trattnig
 Author URI: http://www.bitfusion.org/blog
 
@@ -16,6 +16,7 @@ Version History
 2008-02-26	0.1.4	Upgrade to kPicasa Gallery 0.1.4
 					Fixed Image Summary Issue
 					Fixed Advanced Album Range Feature
+2008-10-03 0.1.5    Upgrade to kPicasa Gallery 0.1.5
 
 TODO
 ---------------------------------------------------------------------------
@@ -160,7 +161,7 @@ function adminKPicasaGallery()
 {	
 	if ( function_exists('add_options_page') )
 	{
-		add_options_page('kPicasa Gallery Plugin Options', 'kPicasa Gallery', 8, KPICASA_GALLERY_DIR.'/param.php');
+		add_options_page('kPicasa Gallery Plugin Options', 'kPicasa Gallery', 8, dirname(__FILE__).'/param.php');
 	}
 }
 

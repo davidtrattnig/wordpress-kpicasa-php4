@@ -1,6 +1,5 @@
 <?php
 
-
 if ( !class_exists('KPicasaGallery') )
 {
 	class KPicasaGallery
@@ -16,7 +15,7 @@ if ( !class_exists('KPicasaGallery') )
 			$this->thumbnailSize   = get_option( 'kpg_thumbnailSize' );
 			$this->showOnlyAlbums  = is_array( $showOnlyAlbums ) ? $showOnlyAlbums : array();
 			$this->cacheTimeout    = 60 * 60 * 1;
-			
+
 			if ( !strlen( $this->username ) )
 			{
 				if ( $this->checkError( new WP_Error('kpicasa_gallery-username-required', "<strong>Error:</strong> you must go to the admin section and set your Picasa Web Album Username in the Options section.") ) )
@@ -117,7 +116,7 @@ if ( !class_exists('KPicasaGallery') )
 				$stop  = $start + $this->nbAlbumsPerPage - 1;
 			}
 			else
-			{				
+			{
 				$start = 0;
 				$stop = count( $xml["ENTRY"] ) - 1;
 				if ($stop < 0) { $stop = 0; }
